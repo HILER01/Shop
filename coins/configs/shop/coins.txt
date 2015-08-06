@@ -1,0 +1,715 @@
+"Coins"
+{
+	"874" // идентификатор монеты (не трогайте если не знаете что это)
+	{
+		"name"			"Монета «Пятилетний ветеран»"	//Название
+		"desc"			""								//Описание
+		"price"			"1000"							//Цена покупки
+		"sell_price"	"500"							//Цена продажи
+		"duration"		"86400"							//Срок действия
+	}
+	"875"
+	{
+		"name"			"Чемпион DreamHack 2013"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"876"
+	{
+		"name"			"Финалист DreamHack 2013"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"877"
+	{
+		"name"			"Полуфиналист DreamHack 2013"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"878"
+	{
+		"name"			"Четвертьфиналист DreamHack 2013"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"879"
+	{
+		"name"			"Победитель EMS One Katowice 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"880"
+	{
+		"name"			"Финалист EMS One Katowice 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"881"
+	{
+		"name"			"Полуфиналист EMS One Katowice 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"882"
+	{
+		"name"			"Четвертьфиналист EMS One Katowice 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"883"
+	{
+		"name"			"Чемпион ESL One Cologne 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"884"
+	{
+		"name"			"Финалист ESL One Cologne 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"885"
+	{
+		"name"			"Полуфиналист ESL One Cologne 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"886"
+	{
+		"name"			"Четвертьфиналист ESL One Cologne 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"887"
+	{
+		"name"			"Бронзовый трофей прогнозов по ESL One Cologne 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"888"
+	{
+		"name"			"Серебряный трофей прогнозов по ESL One Cologne 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"889"
+	{
+		"name"			"Золотой трофей прогнозов по ESL One Cologne 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"890"
+	{
+		"name"			"Чемпион DreamHack Winter 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"891"
+	{
+		"name"			"Финалист DreamHack Winter 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"892"
+	{
+		"name"			"Полуфиналист на DreamHack Winter 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"893"
+	{
+		"name"			"Четвертьфиналист на DreamHack Winter 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"894"
+	{
+		"name"			"Бронзовый трофей прогнозов по DreamHack Winter 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"895"
+	{
+		"name"			"Серебряный трофей прогнозов по DreamHack Winter 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"896"
+	{
+		"name"			"Золотой трофей прогнозов по DreamHack Winter 2014"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"897"
+	{
+		"name"			"Чемпион ESL One Katowice 2015"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"898"
+	{
+		"name"			"Финалист ESL One Katowice 2015"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"899"
+	{
+		"name"			"Полуфиналист ESL One Katowice 2015"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"900"
+	{
+		"name"			"Четвертьфиналист ESL One Katowice 2015"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"901"
+	{
+		"name"			"Бронзовый трофей прогнозов по ESL One Katowice 2015"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"902"
+	{
+		"name"			"Серебряный трофей прогнозов по ESL One Katowice 2015"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"903"
+	{
+		"name"			"Золотой трофей прогнозов по ESL One Katowice 2015"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1001"
+	{
+		"name"			"Монета участника операции «Расплата»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1002"
+	{
+		"name"			"Серебряная монета операции «Расплата»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1003"
+	{
+		"name"			"Золотая монета операции «Расплата»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1004"
+	{
+		"name"			"Монета карты «Museum»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1005"
+	{
+		"name"			"Монета карты «Downtown»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1006"
+	{
+		"name"			"Монета карты «Thunder»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1007"
+	{
+		"name"			"Монета карты «Favela»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1008"
+	{
+		"name"			"Монета карты «Motel»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1009"
+	{
+		"name"			"Монета карты «Seaside»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1010"
+	{
+		"name"			"Монета карты «Library»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1013"
+	{
+		"name"			"Монета участника операции «Браво»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1014"
+	{
+		"name"			"Серебряная монета участника операции «Браво»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1015"
+	{
+		"name"			"Золотая монета участника операции «Браво»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1016"
+	{
+		"name"			"Монета карты «Agency»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1017"
+	{
+		"name"			"Монета карты «Ali»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1018"
+	{
+		"name"			"Монета карты «Cache»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1019"
+	{
+		"name"			"Монета карты «Chinatown»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1020"
+	{
+		"name"			"Монета карты «Gwalior»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1021"
+	{
+		"name"			"Монета карты «Ruinsy»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1022"
+	{
+		"name"			"Монета карты «Siege»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1024"
+	{
+		"name"			"Монета участника операции «Феникс»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1025"
+	{
+		"name"			"Серебряная монета участника операции «Феникс»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1026"
+	{
+		"name"			"Золотая монета участника операции «Феникс»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1028"
+	{
+		"name"			"Монета участника операции «Прорыв»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1029"
+	{
+		"name"			"Серебряная монета участника операции «Прорыв»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1030"
+	{
+		"name"			"Золотая монета участника операции «Прорыв»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1031"
+	{
+		"name"			"Монета карты «Castle»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1032"
+	{
+		"name"			"Монета карты «Black Gold»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1033"
+	{
+		"name"			"Монета карты «Rush»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1034"
+	{
+		"name"			"Монета карты «Mist»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1035"
+	{
+		"name"			"Монета карты «Insertion»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1036"
+	{
+		"name"			"Монета карты «Overgrown»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1037"
+	{
+		"name"			"Монета карты «Marquis»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1038"
+	{
+		"name"			"Монета карты «Workout»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1039"
+	{
+		"name"			"Монета карты «Backalley»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1040"
+	{
+		"name"			"Монета карты «Season»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1041"
+	{
+		"name"			"Монета карты «Bazaar»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1041"
+	{
+		"name"			"Монета карты «Facade»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1041"
+	{
+		"name"			"Монета карты «Log»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1041"
+	{
+		"name"			"Монета карты «Rails»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1041"
+	{
+		"name"			"Монета карты «Resort»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1041"
+	{
+		"name"			"Монета карты «Zoo»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1316"
+	{
+		"name"			"Монета участника операции «Авангард»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1317"
+	{
+		"name"			"Серебряная монета участника операции «Авангард»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1318"
+	{
+		"name"			"Золотая монета участника операции «Авангард»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1327"
+	{
+		"name"			"Монета участника операции «Бладхаунд»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1328"
+	{
+		"name"			"Серебряная монета участника операции «Бладхаунд»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"1329"
+	{
+		"name"			"Золотая монета участника операции «Бладхаунд»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6001"
+	{
+		"name"			"Значок «Dust II»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6002"
+	{
+		"name"			"Значок «Магистр-хранитель»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6003"
+	{
+		"name"			"Значок «Mirage»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6004"
+	{
+		"name"			"Значок «Inferno»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6005"
+	{
+		"name"			"Значок «Italy»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6006"
+	{
+		"name"			"Значок «Победа»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6007"
+	{
+		"name"			"Значок «Militia»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6008"
+	{
+		"name"			"Значок «Nuke»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6009"
+	{
+		"name"			"Значок «Train»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6010"
+	{
+		"name"			"Значок «Хранитель»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+	"6011"
+	{
+		"name"			"Значок «Тактика»"
+		"desc"			""
+		"price"			"1000"
+		"sell_price"	"500"
+		"duration"		"86400"
+	}
+}
