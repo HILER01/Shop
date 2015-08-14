@@ -1,0 +1,53 @@
+"Laser Aim"
+{
+	"green_laser"
+	{
+		"name" "Зеленый лазер"
+		"desc"	""
+		"price"	"500"
+		"sell_price"	"250"
+		"duration"	"86400"
+		
+		"color"	"0 255 0 255"
+	}
+	"red_laser"
+	{
+		"name" "Красный лазер"
+		"desc"	""
+		"price"	"500"
+		"sell_price"	"250"
+		"duration"	"86400"
+		
+		"color"	"255 0 0 255"
+	}
+	"blue_laser"
+	{
+		"name" "Синий лазер"
+		"desc"	""
+		"price"	"500"
+		"sell_price"	"250"
+		"duration"	"86400"
+		
+		"color"	"0 0 255 255"
+	}
+	"white_laser"
+	{
+		"name" "Белый лазер"
+		"desc"	""
+		"price"	"500"
+		"sell_price"	"250"
+		"duration"	"86400"
+		
+		"color"	"255 255 255 255"
+	}
+	"invis_laser"
+	{
+		"name" "Прозрачный лазер"
+		"desc"	""
+		"price"	"500"
+		"sell_price"	"250"
+		"duration"	"86400"
+		
+		"color"	"255 255 255 100"
+	}
+}
