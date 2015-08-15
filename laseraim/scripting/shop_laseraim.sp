@@ -1,13 +1,17 @@
 #include <sourcemod>
 #include <sdktools>
 #include <shop>
+#undef REQUIRE_PLUGIN
+#include <updater>
 
+#pragma semicolon 1
 // Force 1.7 syntax
 #pragma newdecls required
 
 #define PLUGIN_VERSION "1.0"
 #define CATEGORY "Laseraim"
 #define OPTIMIZATION 0 // 0 - работа через OnGameFrame | 1 - работа через Таймер
+#define UPDATE_URL "http://updater.tibari.ru/shop/laseraim/updatefile.txt"
 
 CategoryId g_CategoryId;
 
@@ -20,8 +24,11 @@ int g_iGlow;
 Handle g_hTimer[MAXPLAYERS+1];
 #endif
 int g_iClientLaser[MAXPLAYERS+1];
-
 int m_iFOV;
+
+ConVar WeaponList;
+char g_cWeaponList[16][32];
+int g_iNumWeapons;
 
 public Plugin myinfo =
 {
@@ -35,12 +42,35 @@ public Plugin myinfo =
 public void OnPluginStart()
 {
 	CreateConVar("shop_laser_aim_version", PLUGIN_VERSION, _, FCVAR_PLUGIN|FCVAR_NOTIFY|FCVAR_REPLICATED|FCVAR_SPONLY|FCVAR_DONTRECORD);
+	WeaponList = CreateConVar("shop_laser_aim_weapons", "awp,sg550,scout,g3sg1", "List of weapon used by plugin", FCVAR_PLUGIN);
+	
+	WeaponList.AddChangeHook(OnCvarChange);
+	
+	AutoExecConfig(true, "laseraim", "shop");
 	
 	m_iFOV = FindSendPropOffs("CBasePlayer", "m_iFOV");
 	if (m_iFOV == -1)
 		SetFailState("Fatal Error: Unable to find offset: \"CBasePlayer::m_iFOV\"");
 	
 	if (Shop_IsStarted()) Shop_Started();
+	
+	if (LibraryExists("updater")) Updater_AddPlugin(UPDATE_URL);
+}
+
+public void OnConfigsExecuted()
+{
+	char cBuffer[128];
+	WeaponList.GetString(cBuffer, sizeof(cBuffer));
+	g_iNumWeapons = ExplodeString(cBuffer, ",", g_cWeaponList, sizeof(g_cWeaponList), sizeof(g_cWeaponList[]));
+}
+
+public void OnCvarChange(ConVar convar, const char[] oldValue, const char[] newValue)
+{
+	char convarname[64];
+	convar.GetName(convarname, sizeof(convarname));
+	
+	if (StrEqual("shop_laser_aim_weapons", convarname))
+		g_iNumWeapons = ExplodeString(newValue, ",", g_cWeaponList, sizeof(g_cWeaponList), sizeof(g_cWeaponList[]));
 }
 
 public void OnPluginEnd()
@@ -52,6 +82,17 @@ public void OnMapStart()
 {
 	g_iLaser = PrecacheModel("materials/sprites/laser.vmt");
 	g_iGlow = PrecacheModel("sprites/redglow1.vmt");
+}
+
+public void OnLibraryAdded(const char[] name)
+{
+	if (StrEqual(name, "updater")) Updater_AddPlugin(UPDATE_URL);
+}
+
+public int Updater_OnPluginUpdated()
+{
+	LogMessage("Plugin updated. Old version %s. Now reloading...", PLUGIN_VERSION);
+	ReloadPlugin();
 }
 
 public int Shop_Started()
@@ -119,11 +160,18 @@ public void OnGameFrame()
 				
 				int i_PlFOV = GetEntData(i, m_iFOV);
 				
-				if (StrContains(weaponname, "awp") > -1 || StrContains(weaponname, "sg550") > -1 || StrContains(weaponname, "g3sg1") > -1 || StrContains(weaponname, "scout") > -1)
+				for (int w = 0; w < g_iNumWeapons; w++)
 				{
-					Shop_GetItemById(view_as<ItemId>g_iClientLaser[i], item, sizeof(item));
-					if (i_PlFOV == 10 || i_PlFOV == 15 || i_PlFOV == 40)
-						CreateLaser(i, item);
+					if (StrContains(weaponname, g_cWeaponList[w]) > -1)
+					{
+						Shop_GetItemById(view_as<ItemId>g_iClientLaser[i], item, sizeof(item));
+						switch(i_PlFOV)
+						{
+							case 10: CreateLaser(i, item);
+							case 15: CreateLaser(i, item);
+							case 40: CreateLaser(i, item);
+						}
+					}
 				}
 			}
 		}
@@ -153,13 +201,16 @@ public Action SimpleTimer_Handler(Handle timer, Handle pack)
 			
 			int i_PlFOV = GetEntData(client, m_iFOV);
 			
-			if (StrContains(weaponname, "awp") > -1 || StrContains(weaponname, "sg550") > -1 || StrContains(weaponname, "g3sg1") > -1 || StrContains(weaponname, "scout") > -1)
+			for (int w = 0; w < g_iNumWeapons; w++)
 			{
-				switch(i_PlFOV)
+				if (StrContains(weaponname, g_cWeaponList[w]) > -1)
 				{
-					case 10: CreateLaser(client, item);
-					case 15: CreateLaser(client, item);
-					case 40: CreateLaser(client, item);
+					switch(i_PlFOV)
+					{
+						case 10: CreateLaser(client, item);
+						case 15: CreateLaser(client, item);
+						case 40: CreateLaser(client, item);
+					}
 				}
 			}
 		}
