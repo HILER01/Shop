@@ -1,36 +1,33 @@
 #include <sourcemod>
 #include <sdktools>
 #include <shop>
-#undef REQUIRE_PLUGIN
-#include <updater>
 
 #pragma semicolon 1
 // Force 1.7 syntax
-#pragma newdecls required
+// #pragma newdecls required
 
 #define PLUGIN_VERSION "1.0"
 #define CATEGORY "Laseraim"
 #define OPTIMIZATION 0 // 0 - работа через OnGameFrame | 1 - работа через Таймер
-#define UPDATE_URL "http://updater.tibari.ru/shop/laseraim/updatefile.txt"
 
-CategoryId g_CategoryId;
+new CategoryId:g_CategoryId;
 
-KeyValues kv;
+new Handle:g_hKv;
 
-int g_iLaser;
-int g_iGlow;
+new g_iLaser,
+	g_iGlow;
 
 #if OPTIMIZATION
-Handle g_hTimer[MAXPLAYERS+1];
+new Handle:g_hTimer[MAXPLAYERS+1];
 #endif
-int g_iClientLaser[MAXPLAYERS+1];
-int m_iFOV;
+new g_iClientLaser[MAXPLAYERS+1],
+	m_iFOV;
 
-ConVar WeaponList;
-char g_cWeaponList[16][32];
-int g_iNumWeapons;
+new Handle:WeaponList,
+	String:g_cWeaponList[16][32],
+	g_iNumWeapons;
 
-public Plugin myinfo =
+public Plugin:myinfo =
 {
 	name = "[Shop] Laser Aim",
 	description = "Creates a beam for every times when player holds in arms a Snipers Rifle",
@@ -39,12 +36,11 @@ public Plugin myinfo =
 	url = "http://hlmod.ru"
 };
 
-public void OnPluginStart()
+public OnPluginStart()
 {
 	CreateConVar("shop_laser_aim_version", PLUGIN_VERSION, _, FCVAR_PLUGIN|FCVAR_NOTIFY|FCVAR_REPLICATED|FCVAR_SPONLY|FCVAR_DONTRECORD);
 	WeaponList = CreateConVar("shop_laser_aim_weapons", "awp,sg550,scout,g3sg1", "List of weapon used by plugin", FCVAR_PLUGIN);
-	
-	WeaponList.AddChangeHook(OnCvarChange);
+	HookConVarChange(WeaponList, OnCvarChange);
 	
 	AutoExecConfig(true, "laseraim", "shop");
 	
@@ -53,80 +49,64 @@ public void OnPluginStart()
 		SetFailState("Fatal Error: Unable to find offset: \"CBasePlayer::m_iFOV\"");
 	
 	if (Shop_IsStarted()) Shop_Started();
-	
-	if (LibraryExists("updater")) Updater_AddPlugin(UPDATE_URL);
 }
 
-public void OnConfigsExecuted()
+public OnConfigsExecuted()
 {
-	char cBuffer[128];
-	WeaponList.GetString(cBuffer, sizeof(cBuffer));
+	decl String:cBuffer[128];
+	GetConVarString(WeaponList, cBuffer, sizeof(cBuffer));
 	g_iNumWeapons = ExplodeString(cBuffer, ",", g_cWeaponList, sizeof(g_cWeaponList), sizeof(g_cWeaponList[]));
 }
 
-public void OnCvarChange(ConVar convar, const char[] oldValue, const char[] newValue)
+public OnCvarChange(Handle:convar, const String:oldValue[], const String:newValue[])
 {
-	char convarname[64];
-	convar.GetName(convarname, sizeof(convarname));
-	
-	if (StrEqual("shop_laser_aim_weapons", convarname))
+	if (convar == WeaponList)
 		g_iNumWeapons = ExplodeString(newValue, ",", g_cWeaponList, sizeof(g_cWeaponList), sizeof(g_cWeaponList[]));
 }
 
-public void OnPluginEnd()
+public OnPluginEnd()
 {
 	Shop_UnregisterMe();
 }
 
-public void OnMapStart()
+public OnMapStart()
 {
 	g_iLaser = PrecacheModel("materials/sprites/laser.vmt");
 	g_iGlow = PrecacheModel("sprites/redglow1.vmt");
 }
 
-public void OnLibraryAdded(const char[] name)
+public Shop_Started()
 {
-	if (StrEqual(name, "updater")) Updater_AddPlugin(UPDATE_URL);
-}
-
-public int Updater_OnPluginUpdated()
-{
-	LogMessage("Plugin updated. Old version %s. Now reloading...", PLUGIN_VERSION);
-	ReloadPlugin();
-}
-
-public int Shop_Started()
-{
-	if (kv != null) kv.Close();
-	kv = new KeyValues("Laser Aim");
+	if (g_hKv != INVALID_HANDLE) CloseHandle(g_hKv);
+	g_hKv = CreateKeyValues("Laser Aim");
 	
-	char buffer[PLATFORM_MAX_PATH];
+	decl String:buffer[PLATFORM_MAX_PATH];
 	Shop_GetCfgFile(buffer, sizeof(buffer), "laser_aim.txt");
 	
-	if (!kv.ImportFromFile(buffer)) SetFailState("Couldn't parse file %s", buffer);
+	if (!FileToKeyValues(g_hKv, buffer)) SetFailState("Couldn't parse file %s", buffer);
 	
-	if (kv.GotoFirstSubKey(true))
+	if (KvGotoFirstSubKey(g_hKv, true))
 	{
-		char item[64];
+		decl String:item[64];
 		// Register category `Laseraim`
 		g_CategoryId = Shop_RegisterCategory(CATEGORY, "Лазерный прицел", "");
 		do
 		{
-			if (kv.GetSectionName(item, sizeof(item)) && Shop_StartItem(g_CategoryId, item))
+			if (KvGetSectionName(g_hKv, item, sizeof(item)) && Shop_StartItem(g_CategoryId, item))
 			{
-				kv.GetString("name", buffer, sizeof(buffer), item);
-				kv.GetString("desc", item, sizeof(item), "");
-				Shop_SetInfo(buffer, item, kv.GetNum("price", 500), kv.GetNum("sell_price", 200), Item_Togglable, kv.GetNum("duration", 86400));
+				KvGetString(g_hKv, "name", buffer, sizeof(buffer), item);
+				KvGetString(g_hKv, "desc", item, sizeof(item), "");
+				Shop_SetInfo(buffer, item, KvGetNum(g_hKv, "price", 500), KvGetNum(g_hKv, "sell_price", 200), Item_Togglable, KvGetNum(g_hKv, "duration", 86400));
 				Shop_SetCallbacks(_, OnEquipItem);
 				Shop_EndItem();
 			}
-		} while (kv.GotoNextKey(true));
-		kv.Rewind();
+		} while (KvGotoNextKey(g_hKv, true));
+		KvRewind(g_hKv);
 	}
-	kv.Rewind();
+	KvRewind(g_hKv);
 }
 
-public ShopAction OnEquipItem(int client, CategoryId category_id, const char[] category, ItemId item_id, const char[] item, bool isOn, bool elapsed)
+public ShopAction:OnEquipItem(client, CategoryId:category_id, const String:category[], ItemId:item_id, const String:item[], bool:isOn, bool:elapsed)
 {
 	if (isOn || elapsed)
 	{
@@ -134,10 +114,10 @@ public ShopAction OnEquipItem(int client, CategoryId category_id, const char[] c
 		return Shop_UseOff;
 	}
 	Shop_ToggleClientCategoryOff(client, category_id);
-	g_iClientLaser[client] = view_as<int>item_id;
+	g_iClientLaser[client] = _:item_id;
 	
 	#if OPTIMIZATION
-	Handle LaserData;
+	new Handle:LaserData;
 	g_hTimer[client] = CreateDataTimer(0.1, SimpleTimer_Handler, LaserData, TIMER_REPEAT);
 	WritePackCell(LaserData, client);
 	WritePackString(LaserData, item);
@@ -146,25 +126,25 @@ public ShopAction OnEquipItem(int client, CategoryId category_id, const char[] c
 }
 
 #if !OPTIMIZATION
-public void OnGameFrame()
+public OnGameFrame()
 {
-	for (int i = 1; i <= MaxClients; i++)
+	for (new i = 1; i <= MaxClients; i++)
 	{
 		if (g_iClientLaser[i])
 		{
-			char weaponname[32];
-			char item[64];
+			decl String:weaponname[32],
+				String:item[64];
 			if (IsClientInGame(i) && IsPlayerAlive(i))
 			{
 				GetClientWeapon(i, weaponname, sizeof(weaponname));
 				
-				int i_PlFOV = GetEntData(i, m_iFOV);
+				new i_PlFOV = GetEntData(i, m_iFOV);
 				
-				for (int w = 0; w < g_iNumWeapons; w++)
+				for (new w = 0; w < g_iNumWeapons; w++)
 				{
 					if (StrContains(weaponname, g_cWeaponList[w]) > -1)
 					{
-						Shop_GetItemById(view_as<ItemId>g_iClientLaser[i], item, sizeof(item));
+						Shop_GetItemById(ItemId:g_iClientLaser[i], item, sizeof(item));
 						switch(i_PlFOV)
 						{
 							case 10: CreateLaser(i, item);
@@ -180,28 +160,28 @@ public void OnGameFrame()
 #endif
 
 #if OPTIMIZATION
-public Action SimpleTimer_Handler(Handle timer, Handle pack)
+public Action:SimpleTimer_Handler(Handle:timer, Handle:pack)
 {
-	char item[64];
+	decl String:item[64];
 	ResetPack(pack);
-	int client = ReadPackCell(pack);
+	new client = ReadPackCell(pack);
 	ReadPackString(pack, item, sizeof(item));
 	
 	if (!g_iClientLaser[client])
 	{
-		timer = null;
+		timer = INVALID_HANDLE;
 		return Plugin_Stop;
 	}
 	else
 	{
-		char weaponname[32];
+		decl String:weaponname[32];
 		if (IsClientInGame(client) && IsPlayerAlive(client))
 		{
 			GetClientWeapon(client, weaponname, sizeof(weaponname));
 			
-			int i_PlFOV = GetEntData(client, m_iFOV);
+			new i_PlFOV = GetEntData(client, m_iFOV);
 			
-			for (int w = 0; w < g_iNumWeapons; w++)
+			for (new w = 0; w < g_iNumWeapons; w++)
 			{
 				if (StrContains(weaponname, g_cWeaponList[w]) > -1)
 				{
@@ -219,18 +199,18 @@ public Action SimpleTimer_Handler(Handle timer, Handle pack)
 }
 #endif
 
-public void CreateLaser(int client, const char[] item)
+public CreateLaser(client, const String:item[])
 {
-	int iColor[4];
-	float fLife, fWidth, fDotWidth, vieworigin[3], pos[3], clientpos[3];
-	if (kv.JumpToKey(item))
+	new iColor[4];
+	new Float:fLife, Float:fWidth, Float:fDotWidth, Float:vieworigin[3], Float:pos[3], Float:clientpos[3];
+	if (KvJumpToKey(g_hKv, item))
 	{
-		kv.GetColor4("color", iColor);
+		KvGetColor(g_hKv, "color", iColor[0], iColor[1], iColor[2], iColor[3]);
 		if (!iColor[0] && !iColor[1] && !iColor[2] && !iColor[3])
 			iColor = {255, 0, 0, 255};
-		fLife = kv.GetFloat("life", 0.1);
-		fWidth = kv.GetFloat("width", 0.12);
-		fDotWidth = kv.GetFloat("dot_width", 0.25);
+		fLife = KvGetFloat(g_hKv, "life", 0.1);
+		fWidth = KvGetFloat(g_hKv, "width", 0.12);
+		fDotWidth = KvGetFloat(g_hKv, "dot_width", 0.25);
 		
 		GetClientAbsOrigin(client, vieworigin);
 		if (GetClientButtons(client) & IN_DUCK)
@@ -240,10 +220,10 @@ public void CreateLaser(int client, const char[] item)
 		
 		GetLookPos(client, pos);
 		
-		float distance = GetVectorDistance(vieworigin, pos);
-		float percentage = 0.4 / (distance / 100);
+		new Float:distance = GetVectorDistance(vieworigin, pos);
+		new Float:percentage = 0.4 / (distance / 100);
 		
-		float newPlayerViewOrigin[3];
+		new Float:newPlayerViewOrigin[3];
 		newPlayerViewOrigin[0] = vieworigin[0] + ((pos[0] - vieworigin[0]) * percentage);
 		newPlayerViewOrigin[1] = vieworigin[1] + ((pos[1] - vieworigin[1]) * percentage) - 0.08;
 		newPlayerViewOrigin[2] = vieworigin[2] + ((pos[2] - vieworigin[2]) * percentage);
@@ -258,21 +238,21 @@ public void CreateLaser(int client, const char[] item)
 		TE_SetupGlowSprite(pos, g_iGlow, fLife, fDotWidth, iColor[3]);
 		TE_SendToAll();
 		
-		kv.Rewind();
+		KvRewind(g_hKv);
 	}
 }
 
-void GetLookPos(int client, float pos[3])
+GetLookPos(client, Float:pos[3])
 {
-	float eyepos[3], eyeang[3]; Handle h_trace;
+	new Float:eyepos[3], Float:eyeang[3], Handle:h_trace;
 	GetClientEyePosition(client, eyepos);
 	GetClientEyeAngles(client, eyeang);
 	h_trace = TR_TraceRayFilterEx(eyepos, eyeang, MASK_SOLID, RayType_Infinite, GetLookPos_Filter, client);
 	TR_GetEndPosition(pos, h_trace);
-	h_trace.Close();
+	CloseHandle(h_trace);
 }
 
-public bool GetLookPos_Filter(int ent, int mask, any client)
+public bool:GetLookPos_Filter(ent, mask, any:client)
 {
 	return client != ent; // Проверка, что игрок не смотрит на себя.
 }
