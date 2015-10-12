@@ -8,7 +8,7 @@
 // Force 1.7 syntax
 #pragma newdecls required
 
-#define PLUGIN_VERSION "1.0"
+#define PLUGIN_VERSION "1.1"
 #define CATEGORY "Laseraim"
 #define OPTIMIZATION 0 // 0 - работа через OnGameFrame | 1 - работа через Таймер
 #define UPDATE_URL "http://updater.tibari.ru/shop/laseraim/updatefile.txt"
@@ -117,7 +117,7 @@ public int Shop_Started()
 				kv.GetString("name", buffer, sizeof(buffer), item);
 				kv.GetString("desc", item, sizeof(item), "");
 				Shop_SetInfo(buffer, item, kv.GetNum("price", 500), kv.GetNum("sell_price", 200), Item_Togglable, kv.GetNum("duration", 86400));
-				Shop_SetCallbacks(_, OnEquipItem);
+				Shop_SetCallbacks(_, OnEquipItem, _, _, _, _, _, OnItemSell);
 				Shop_EndItem();
 			}
 		} while (kv.GotoNextKey(true));
@@ -143,6 +143,12 @@ public ShopAction OnEquipItem(int client, CategoryId category_id, const char[] c
 	WritePackString(LaserData, item);
 	#endif
 	return Shop_UseOn;
+}
+
+public bool OnItemSell(int client, CategoryId category_id, const char[] category, ItemId item_id, const char[] item, ItemType type, int sell_price)
+{
+	if (Shop_IsClientItemToggled(client, item_id)) g_iClientLaser[client] = 0;
+	return true;
 }
 
 #if !OPTIMIZATION
