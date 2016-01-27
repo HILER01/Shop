@@ -8,7 +8,7 @@
 // Force 1.7 syntax
 #pragma newdecls required
 
-#define PLUGIN_VERSION "1.1"
+#define PLUGIN_VERSION "1.2"
 #define CATEGORY "Laseraim"
 #define OPTIMIZATION 0 // 0 - работа через OnGameFrame | 1 - работа через Таймер
 #define UPDATE_URL "http://updater.tibari.ru/shop/laseraim/updatefile.txt"
@@ -123,7 +123,7 @@ public int Shop_Started()
 		} while (kv.GotoNextKey(true));
 		kv.Rewind();
 	}
-	kv.Rewind();
+	delete kv;
 }
 
 public ShopAction OnEquipItem(int client, CategoryId category_id, const char[] category, ItemId item_id, const char[] item, bool isOn, bool elapsed)
@@ -134,7 +134,7 @@ public ShopAction OnEquipItem(int client, CategoryId category_id, const char[] c
 		return Shop_UseOff;
 	}
 	Shop_ToggleClientCategoryOff(client, category_id);
-	g_iClientLaser[client] = view_as<int>item_id;
+	g_iClientLaser[client] = view_as<int>(item_id);
 	
 	#if OPTIMIZATION
 	Handle LaserData;
@@ -149,6 +149,16 @@ public bool OnItemSell(int client, CategoryId category_id, const char[] category
 {
 	if (Shop_IsClientItemToggled(client, item_id)) g_iClientLaser[client] = 0;
 	return true;
+}
+
+public int Shop_OnAuthorized(int client)
+{
+	if (client && IsClientInGame(client))
+	{
+		ItemId item_id = view_as<ItemId>(g_iClientLaser[client]);
+		if (!Shop_IsClientItemToggled(client, item_id))
+			g_iClientLaser[client] = 0;
+	}
 }
 
 #if !OPTIMIZATION
@@ -170,7 +180,7 @@ public void OnGameFrame()
 				{
 					if (StrContains(weaponname, g_cWeaponList[w]) > -1)
 					{
-						Shop_GetItemById(view_as<ItemId>g_iClientLaser[i], item, sizeof(item));
+						Shop_GetItemById((view_as<ItemId>(g_iClientLaser[i])), item, sizeof(item));
 						switch(i_PlFOV)
 						{
 							case 10: CreateLaser(i, item);
