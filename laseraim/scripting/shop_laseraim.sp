@@ -8,7 +8,7 @@
 // Force 1.7 syntax
 #pragma newdecls required
 
-#define PLUGIN_VERSION "1.2"
+#define PLUGIN_VERSION "1.3"
 #define CATEGORY "Laseraim"
 #define OPTIMIZATION 0 // 0 - работа через OnGameFrame | 1 - работа через Таймер
 #define UPDATE_URL "http://updater.tibari.ru/shop/laseraim/updatefile.txt"
@@ -123,7 +123,6 @@ public int Shop_Started()
 		} while (kv.GotoNextKey(true));
 		kv.Rewind();
 	}
-	delete kv;
 }
 
 public ShopAction OnEquipItem(int client, CategoryId category_id, const char[] category, ItemId item_id, const char[] item, bool isOn, bool elapsed)
